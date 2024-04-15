@@ -115,3 +115,5 @@ df[['beds','type']] = df.beds.apply(
 df.head()
 df[['beds', 'baths', 'sq_feet']] = df.beds.str.split(expand=True)
 df
+
+#Testing
