@@ -84,17 +84,11 @@ df = pd.concat(df_list).reset_index().drop(columns='index')
 df
 df['address'] = df['address'].astype('str')
 df['beds'] = df['beds'].astype('str')
-#remove html tags
-#df['prices'] = df['prices'].replace('\[', '', regex=True)
 df.loc[:,'address'] = df.loc[:,'address'].replace('<address class="list-card-addr">', '', regex=True)
-#df['prices'] = df['prices'].replace('\]', '', regex=True)
 df.loc[:,'address'] = df.loc[:,'address'].replace('</address>', '', regex=True)
-#df['prices'] = df['prices'].str.replace(r'\D', '')
 
-#filter unwanted property types
 df = df[~df['beds'].str.contains("Land for sale")]
 
-#remove html tags from beds column
 df.loc[:,'beds'] = df.loc[:,'beds'].replace('<ul class="list-card-details"><li class="">', ' ', regex=True)
 df.loc[:,'beds'] = df.loc[:,'beds'].replace('<abbr class="list-card-label"> <!-- -->bds</abbr></li><li class="">', ' ', regex=True)
 df.loc[:,'beds'] = df.loc[:,'beds'].replace('<abbr class="list-card-label"> <!-- -->ba</abbr></li><li class="">', ' ', regex=True)
@@ -108,14 +102,9 @@ df.loc[:,'beds'] = df.loc[:,'beds'].replace('Multi-family', 'Multifamily', regex
 df.loc[:,'beds'] = df.loc[:,'beds'].replace(' for sale', '', regex=True)
 df.loc[:,'beds'] = df.loc[:,'beds'].replace('-<abbr class="list-card-label"> <!0 0>Auction</abbr>', '- Auction', regex=True)
 df.loc[:,'beds'] = df.loc[:,'beds'].replace('-<abbr class="list-card-label"> <!0 0>Pending</abbr>', '- Pending', regex=True)
-
-#split beds column into beds, bath and sq_feet
-#df[['beds','baths','sq_feet']] = df.beds.str.split(expand=True)
 df.iloc[19]['beds']
 df[['beds','type']] = df.beds.apply(
     lambda x: pd.Series(str(x).split('-')))
 df.head()
 df[['beds', 'baths', 'sq_feet']] = df.beds.str.split(expand=True)
 df
-
-#Testing
