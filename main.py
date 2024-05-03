@@ -22,7 +22,7 @@ headers = {
 }
 
 with requests.session() as s:
-    city = 'los-angeles/'
+    city = 'seattle/'
     page = 1
     end_page = 10
     url = ''
